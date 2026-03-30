@@ -1,6 +1,6 @@
 import { pool } from "../database/db.js";
 
-const getAllUsers = async () => {
+export const getAllUsers = async () => {
   try {
     const { rows } = await pool.query(
       "SELECT * FROM users WHERE deleted_at IS NULL",
@@ -11,7 +11,7 @@ const getAllUsers = async () => {
   }
 };
 
-const findUserByEmail = async (email) => {
+export const findUserByEmail = async (email) => {
   try {
     const { rows } = await pool.query(
       "SELECT * FROM users WHERE email = $1 AND deleted_at IS NULL",
@@ -23,7 +23,7 @@ const findUserByEmail = async (email) => {
   }
 };
 
-const findUserById = async (id) => {
+export const findUserById = async (id) => {
   try {
     const { rows } = await pool.query(
       "SELECT * FROM users WHERE id = $1 AND deleted_at IS NULL",
@@ -35,7 +35,7 @@ const findUserById = async (id) => {
   }
 };
 
-const createUser = async (name, email) => {
+export const createUser = async (name, email) => {
   try {
     const { rows } = await pool.query(
       "INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *",
@@ -47,7 +47,7 @@ const createUser = async (name, email) => {
   }
 };
 
-const deleteUser = async (id) => {
+export const deleteUser = async (id) => {
   const date = new Date().toISOString().split("T")[0];
   console.log(date);
 
@@ -61,7 +61,7 @@ const deleteUser = async (id) => {
   }
 };
 
-const updateUsername = async (name, id) => {
+export const updateUsername = async (name, id) => {
   try {
     return await pool.query("UPDATE users SET name = $1 WHERE id = $2", [
       name,
@@ -70,13 +70,4 @@ const updateUsername = async (name, id) => {
   } catch (error) {
     throw new Error(error.message);
   }
-};
-
-export const UserRepository = {
-  getAllUsers,
-  findUserByEmail,
-  findUserById,
-  createUser,
-  updateUsername,
-  deleteUser,
 };

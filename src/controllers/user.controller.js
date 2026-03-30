@@ -1,6 +1,6 @@
-import { UserRepository } from "../respositories/user.repository.js";
+import * as UserRepository from "../respositories/user.repository.js";
 
-const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res) => {
   try {
     const users = await UserRepository.getAllUsers();
     res.json(users);
@@ -9,7 +9,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {
+export const getUser = async (req, res) => {
   const id = parseInt(req.params.id);
 
   try {
@@ -27,7 +27,7 @@ const getUser = async (req, res) => {
   }
 };
 
-const createUser = async (req, res) => {
+export const createUser = async (req, res) => {
   const { name, email } = req.body;
 
   try {
@@ -49,7 +49,7 @@ const createUser = async (req, res) => {
   }
 };
 
-const updateUsername = async (req, res) => {
+export const updateUsername = async (req, res) => {
   const id = parseInt(req.params.id);
   const { name } = req.body;
 
@@ -68,7 +68,7 @@ const updateUsername = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   const id = parseInt(req.params.id);
 
   try {
@@ -84,12 +84,4 @@ const deleteUser = async (req, res) => {
   } catch (error) {
     throw new Error(error.message);
   }
-};
-
-export const UserController = {
-  getAllUsers,
-  getUser,
-  createUser,
-  updateUsername,
-  deleteUser,
 };
