@@ -9,11 +9,11 @@ export const pool = new Pool({
   port: DB_PORT,
 });
 
-export async function testConnection() {
+export const testConnection = async () => {
   try {
     await pool.query("SELECT 1");
     console.log("Conexión exitosa");
   } catch (error) {
     console.error("Error de conexión:", error);
   }
-}
+};
